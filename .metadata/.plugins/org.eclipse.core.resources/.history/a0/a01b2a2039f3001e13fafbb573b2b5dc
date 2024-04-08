@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+</head>
+<body>
+    <h1>Student List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (StudentModel student : students) { %>
+                <tr>
+                    <td><%= student.getStudent_id() %></td>
+                    <td><%= student.getName() %></td>
+                    <td><%= student.getEmail() %></td>
+                    <td>
+                        <a href="/students/edit/<%= student.getStudent_id() %>">Edit</a>
+                        <a href="/students/delete/<%= student.getStudent_id() %>">Delete</a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <a href="/students/add">Add Student</a>
+</body>
+</html>

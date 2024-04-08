@@ -1,0 +1,48 @@
+package com.example.demo.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.example.demo.service.LoginServer;
+import com.example.demo.service.SignupService;
+
+@Controller
+public class MainController {
+	
+	@Autowired
+	private LoginService loginService;
+	
+	@Autowired
+	private SignupService signupService;
+	
+	@GetMapping("/")
+	public String hello() {
+		return "home";
+	}
+	@GetMapping("/login")
+	public String gotoLoginPage() {
+		return "login";
+	}
+	@PostMapping("/loginpage")
+	public String loginUser(@RequestParam("userName") String username, @RequestParam("password") String password,
+			@RequestParam("role") String role) {
+		boolean isValid = loginService.validateUser(username, password, role);
+		return isValid ? (role.equals("admin") ? "AdminLogin" : "StudentLogin") : "login";
+	}
+	@GetMapping("/About")
+	public String about() {
+		return "About";
+	}
+	@GetMapping("/signup")
+	public String signup() {
+		return "signup";
+	}
+	@PostMapping("/signuppage")
+	public String signupUser(@RequestParam("userName") String username, @RequestParam("password") String password,
+			@RequestParam("role") String role) {
+		boolean isCreated = signupService.createUser(username, password, role);
+		return isCreated ? "login" : "signup";
+	}
+}

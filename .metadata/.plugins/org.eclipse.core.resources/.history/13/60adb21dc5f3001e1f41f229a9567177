@@ -1,0 +1,36 @@
+package com.example.demo.service;
+
+import com.example.demo.model.StudentModel;
+import com.example.demo.repository.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.CourseModel;
+
+import java.util.List;
+
+@Service
+public class AdminService {
+	@Autowired
+	private AdminRepository studentRepository;
+
+	public AdminService(AdminRepository studentRepository) {
+		this.studentRepository = studentRepository;
+	}
+
+	public List<StudentModel> getAllStudents() {
+		return studentRepository.findAll();
+	}
+
+	public StudentModel getStudentById(Long id) {
+		return studentRepository.findById(id).orElse(null);
+	}
+
+	public void saveStudent(StudentModel student) {
+		studentRepository.save(student);
+	}
+
+	public void deleteStudent(Long id) {
+		studentRepository.deleteById(id);
+	}
+}

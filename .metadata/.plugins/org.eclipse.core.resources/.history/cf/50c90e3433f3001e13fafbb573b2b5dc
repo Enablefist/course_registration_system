@@ -1,0 +1,39 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.model.StudentModel;
+
+@Service
+public class StudentService {
+
+	@Autowired
+	private StudentRepository studentRepository;
+	
+	public List<StudentModel> getAllSudent(){
+		return studentRepository.findAll();
+	}
+	public StudentModel viewStudent(Long Student_id) {
+		return studentRepository.findById(Student_id).orElse(null);
+	}
+	public int update(long Studen_id) {
+		StudentModel stud = studentRepository.findById(Studen_id).orElse(null);
+		if (stud != null) {
+			stud.getStudent_id();
+			studentRepository.save(stud);
+			return 1;
+		}
+		return 0;
+	}
+	public int deleteStudent(long patientId) {
+		if (studentRepository.existsById(patientId)) {
+			studentRepository.deleteById(patientId);
+			return 1;
+		}
+		return 0;
+	}
+}

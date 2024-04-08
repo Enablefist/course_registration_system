@@ -1,0 +1,32 @@
+package com.example.demo.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.StudentModel;
+import com.example.demo.model.CourseModel;
+
+import com.example.demo.repository.AdminRepository;
+import com.example.demo.repository.CourseRepository;
+
+
+@Service
+public class StudentService {
+	@Autowired
+	private AdminRepository adminRepository;
+	@Autowired
+	private CourseRepository courseRepository;
+	
+	public List<CourseModel> getAllCourses(){
+		return courseRepository.findAll();
+	}
+	public List<CourseModel> getRegisteredCourse(Long student_id){
+		Optional<StudentModel> studentOptional=adminRepository.findById(student_id);
+		if(studentOptional.isPresent()) {
+			StudentModel student=studentOptional.get();
+		}
+	}
+}

@@ -1,0 +1,23 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.model.StudentModel;
+
+@Service
+public class StudentService {
+
+	@Autowired
+	private StudentRepository studentRepository;
+	
+	public List<StudentModel> getAllSudent(){
+		return studentRepository.findAll();
+	}
+	public StudentModel viewStudent(Long Student_id) {
+		return studentRepository.findById(Student_id).orElse(null);
+	}
+}

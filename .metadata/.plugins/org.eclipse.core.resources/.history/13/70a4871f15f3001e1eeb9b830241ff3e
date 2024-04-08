@@ -1,0 +1,125 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard</title>
+<!-- Bootstrap CSS for styling and responsiveness -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background-color: #004085;
+    padding: 10px;
+    border-radius: 0;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.navbar a:hover {
+    color: #d1ecf1;
+}
+
+.sidebar {
+    background-color: #343a40;
+    min-height: 100vh;
+    padding: 20px 0;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.sidebar a {
+    color: #fff;
+    padding: 15px 20px;
+    display: block;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+    color: #fff; /* Hover color */
+}
+
+.content {
+    padding: 20px;
+}
+
+.footer {
+    background-color: #004085;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.admin-dashboard-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #004085;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 999;
+}
+
+.top-right-options {
+    margin-top: 10px;
+}
+
+.top-right-options a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+/* Your existing styles */
+</style>
+</head>
+<body>
+<nav class="navbar">
+    <a href="/home">Home</a>
+    <!--  
+    <div class="top-right-options">
+        <a href="Register">Register for course</a>
+        <a href="view">view avialable course</a>
+        <a href="registeredCourse">view registered course</a>
+        <a href="#">Emergency Phone</a>
+        <a href="/logout">Logout</a>
+    </div>-->
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 offset-md-2 content"> <!-- Adjusted offset from 3 to 2 -->
+            <h1>Welcome Course Registration!</h1>
+            <p>This System will Provide the following Services .</p>
+            <h2>Services</h2>
+            <p>Here you can view avialable Courses,Register for Course and view already register course</p>
+            <h2>Contact Us</h2>
+            <p>If you have any questions or  please contact us at (123) 456-7890 or email us at info@ourhospital.com.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Hospital Home Page Footer -->
+<div class="admin-dashboard-footer">
+    <p>� 2024 Our Hospital. All rights reserved.</p>
+</div>
+
+<!-- Bootstrap JS for functionality -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+    

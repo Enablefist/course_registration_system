@@ -1,0 +1,97 @@
+package com.example.demo.Controller;
+
+import com.example.demo.model.CourseModel;
+import com.example.demo.model.StudentModel;
+import com.example.demo.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import com.example.demo.model.StudentModel;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
+	
+	@Autowired
+    private AdminService adminService;
+    
+    @GetMapping("/students")
+    public String viewAllStudents(Model model) {
+    	List<StudentModel> students=adminService.getAllStudents();
+    	model.addAttribute("students",students);
+    	return "admin/students";
+    }
+    
+    @GetMapping("/courses")
+    public String viewAllCourses(Model model) {
+    	List<CourseModel> courses=adminService.getAllCourse();
+    	model.addAttribute("courses",courses);
+    	return "admin/courses";
+    }
+    @GetMapping("/students/add")
+    public String showAddStudentForm(Model model) {
+    	model.addAttribute("students",new StudentModel());
+    	return "admin/add-student";
+    }
+    @PostMapping("/students/add")
+    public String addStudent(@RequestParam("studentid") long student_id,
+    		@RequestParam("name") String name,@RequestParam("email") String email) {
+    	StudentModel student=new StudentModel();
+    	student.setStudent_id(student_id);
+    	student.setName(name);
+    	student.setEmail(email);
+    	adminService.saveStudent(student);
+    	return "redirect:/admin/students";
+    }
+    @GetMapping("/courses/add")
+    public String showAddCourseForm(Model model) {
+    	model.addAttribute("Course",new CourseModel());
+    	return "admin/add-course";
+    }
+    @PostMapping("/courses/add")
+    public String addCourse(@RequestParam("courseid") long id,
+    		@RequestParam("name") String name,@RequestParam("instructor") String Instructure,
+    		@RequestParam("Duration") String duration ) {
+    	CourseModel course=new CourseModel();
+    	course.setId(id);
+    	course.setName(name);
+    	course.setInstructure(Instructure);
+    	course.setDuration(duration);
+    	adminService.addCourse(course);
+    	return "redirect:/admin/courses";
+    }
+    @GetMapping("/students/delete/{id}")
+    public String deleteStudent(@PathVariable("Student_id") Long student_id) {
+    	adminService.deleteStudent(student_id);
+    	return "redirect:/admin/students";
+    }
+    @GetMapping("/courses/delete/{id}")
+    public String deleteCourse(@PathVariable("id") Long id) {
+    	adminService.deleteCourse(id);
+    	return "redirect/admin/courses";
+    }
+    @GetMapping("/students/edit")
+    public String showEditStudentForm() {
+    	return "admin/edit-student";
+    }
+    @PostMapping("/students/edit")
+    public String updateStudent(StudentModel student) {
+    	int rowsAffected=adminService.updateStudent(student.getStudent_id(),student.getName(),student.getEmail());
+    	return rowsAffected >0 ?"redirect:/admin/students":"AdminLogin";
+    }
+    @GetMapping("/courses/edit")
+    public String showEdirCourseForm(@PathVariable("id") Long id,Model model) {
+    	CourseModel course=adminService.getCourseById(id);
+    	model.addAttribute("courses",course);
+    	return "admin/edit-course";
+    }
+    @PostMapping("/courses/edit/{id}")
+    public String updateCourse(@PathVariable("id") Long id,Model model,@ModelAttribute("course") CourseModel course) {
+    	course.setId(id);
+    	adminService.updateCourse(course);
+    	return "redirect:/admin/courses";
+    }
+}

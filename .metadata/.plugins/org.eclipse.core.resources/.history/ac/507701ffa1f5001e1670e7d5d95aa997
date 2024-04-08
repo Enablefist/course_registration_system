@@ -1,0 +1,146 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard</title>
+<!-- Bootstrap CSS for styling and responsiveness -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background-color: #004085;
+    padding: 10px;
+    border-radius: 0;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.navbar a:hover {
+    color: #d1ecf1;
+}
+
+.sidebar {
+    background-color: #343a40;
+    min-height: 100vh;
+    padding: 20px 0;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.sidebar a {
+    color: #fff;
+    padding: 15px 20px;
+    display: block;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+    color: #fff; /* Hover color */
+}
+
+.content {
+    padding: 20px;
+}
+
+.footer {
+    background-color: #004085;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.admin-dashboard-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #004085;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 999;
+}
+
+.top-right-options {
+    margin-top: 10px;
+}
+
+.top-right-options a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+/* Your existing styles */
+.img {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+</style>
+<script>
+function confirmLogout() {
+    return confirm("Are you sure you want to logout?");
+}
+</script>
+</head>
+<body>
+	<nav class="navbar">
+		<a href="/">Home</a>
+		<div class="top-right-options">
+			<a href="/" onclick="return confirmLogout()">Logout</a>
+		</div>
+	</nav>
+	 <div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 sidebar">
+				<h3 style="color: #fff;">Menu</h3>
+				<ul class="nav flex-column">
+				<li class="nav-item"> <a href="/students/viewCourses">View Available Courses</a></li>
+				<li class="nav-item"> <a href="/students/register">Register for course</a></li>
+				<li class="nav-item"> <a href="/students/registeredCourses">Registered course</a></li>
+				</ul>
+			</div>
+			<div class="col-md-9 content">
+				<h1>Welcome, to Student Dahboard!</h1>
+				<img src="studentimage.jpg" >
+				<!-- Image Cards -->
+	<!-- 			<div class="row">
+					<div class="col-md-4">
+						<div class="card">
+							<img src="patient-dashboard.jpg" class="card-img-top" alt="Patient Dashboard">
+							<div class="card-body">
+								<h5 class="card-title">Patient Dashboard</h5>
+								<p class="card-text">Manage patient data and appointments.</p>
+								<a href="/viewPatient" class="btn btn-primary">Go to Dashboard</a>
+							</div>
+						</div>
+					</div>
+					More cards can be added here
+				</div> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="admin-dashboard-footer">
+		<p>2024 Student Dashboard</p>
+	</div>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+    

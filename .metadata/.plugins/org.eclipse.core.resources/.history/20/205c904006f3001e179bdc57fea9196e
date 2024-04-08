@@ -1,0 +1,23 @@
+package com.example.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.LoginModel;
+import com.example.demo.repository.LoginRepository;
+
+@Service
+public class SignupService {
+
+	@Autowired
+	private LoginRepository signupRepository;
+
+	public boolean createUser(String username, String password, String role) {
+		LoginModel user = new LoginModel();
+		user.setUserName(username);
+		user.setPassword(password);
+		user.setRole(role);
+		signupRepository.save(user);
+		return true;
+	}
+}

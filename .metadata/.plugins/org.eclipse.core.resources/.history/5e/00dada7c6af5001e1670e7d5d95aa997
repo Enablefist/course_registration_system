@@ -1,0 +1,131 @@
+package com.example.demo.Controller;
+
+import com.example.demo.model.CourseModel;
+import com.example.demo.model.StudentModel;
+import com.example.demo.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import com.example.demo.model.StudentModel;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
+	
+	@Autowired
+    private AdminService adminService;
+    
+    @GetMapping("/students")
+    public String viewAllStudents(Model model) {
+    	List<StudentModel> students=adminService.getAllStudents();
+    	model.addAttribute("students",students);
+    	return "admin/students";
+    }
+    
+    @GetMapping("/courses")
+    public String viewAllCourses(Model model) {
+    	List<CourseModel> courses=adminService.getAllCourse();
+    	model.addAttribute("courses",courses);
+    	return "admin/courses";
+    }
+    @GetMapping("/students/add")
+    public String showAddStudentForm(Model model) {
+    	model.addAttribute("students",new StudentModel());
+    	return "admin/add-student";
+    }
+    @PostMapping("/students/add")
+    public String addStudent(@RequestParam("studentid") long student_id,
+    		@RequestParam("name") String name,@RequestParam("email") String email) {
+    	StudentModel student=new StudentModel();
+    	student.setStudent_id(student_id);
+    	student.setName(name);
+    	student.setEmail(email);
+    	adminService.saveStudent(student);
+    	return "redirect:/admin/students";
+    }
+    @GetMapping("/courses/add")
+    public String showAddCourseForm(Model model) {
+    	model.addAttribute("Course",new CourseModel());
+    	return "admin/add-course";
+    }
+    @PostMapping("/courses/add")
+    public String addCourse(@RequestParam("courseid") long id,
+    		@RequestParam("name") String name,@RequestParam("instructor") String Instructure,
+    		@RequestParam("Duration") String duration ) {
+    	CourseModel course=new CourseModel();
+    	course.setId(id);
+    	course.setName(name);
+    	course.setInstructure(Instructure);
+    	course.setDuration(duration);
+    	adminService.addCourse(course);
+    	return "redirect:/admin/courses";
+    }
+    @GetMapping("/students/delete")
+    public String deleteStudentform() {
+    	return "admin/delete-student";
+    }
+    
+    @PostMapping("/students/delete")
+    public String deletestudent(StudentModel student,@RequestParam("student_id") long student_id) {
+    	if(!adminService.areIdsPresent(student_id)) {
+	        return "admin/idNotPresent";
+	    }
+    	int deleterowsAffected=adminService.deleteStudent(student.getStudent_id());
+    	return deleterowsAffected>0?"redirect:/admin/students":"AdminLogin";
+    }
+    @GetMapping("/courses/delete")
+    public String deleteCourseform() {
+        return "admin/delete-course"; 
+    }
+    @PostMapping("/courses/delete")
+    public String deleteCourse(CourseModel course) {
+    	int deletecourserowsAffected=adminService.deleteCourse(course.getId());
+    	return deletecourserowsAffected>0?"redirect:/admin/courses":"AdminLogin";
+    }
+    
+    @GetMapping("/students/edit")
+    public String showEditStudentForm() {
+    	return "admin/edit-student";
+    }
+    @PostMapping("/students/edit")
+    public String updateStudent(StudentModel student) {
+        try {
+            int rowsAffected = adminService.updateStudent(student.getStudent_id(), student.getName(), student.getEmail());
+            if (rowsAffected > 0) {
+                return "redirect:/admin/students";
+            } else {
+                return "AdminLogin"; 
+            }
+        } catch (Exception e) {
+            return "AdminLogin"; 
+        }
+    }
+    @GetMapping("/courses/edit")
+    public String showEdirCourseForm() {
+    	return "admin/edit-course";
+    }
+    @PostMapping("/courses/edit")
+    public String updateCourse(CourseModel course) {
+        try {
+            int courserowsAffected = adminService.updateCourse(course.getId(), course.getName(), course.getInstructure(), course.getDuration());
+            if (courserowsAffected > 0) {
+                return "redirect:/admin/courses";
+            } else {
+                return "AdminLogin";
+            }
+        } catch (Exception e) {
+            return "AdminLogin"; //
+        }
+    }
+    @GetMapping("/AdminLogin")
+    public String returnadminLogin(){
+    	return "AdminLogin";
+    }
+    @GetMapping("/delete-student")
+    public String returndeletestudent() {
+    	return "delete-course";
+    }
+} 		

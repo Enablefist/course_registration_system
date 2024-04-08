@@ -1,0 +1,64 @@
+package com.example.demo.service;
+
+import com.example.demo.model.StudentModel;
+import com.example.demo.repository.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.CourseModel;
+import com.example.demo.repository.CourseRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class AdminService {
+	@Autowired
+	private AdminRepository studentRepository;
+	
+	@Autowired
+	private CourseRepository courseRepository;
+
+	public AdminService(AdminRepository studentRepository) {
+		this.studentRepository = studentRepository;
+	}
+
+	public List<StudentModel> getAllStudents() {
+		return studentRepository.findAll();
+	}
+
+	public StudentModel getStudentById(Long id) {
+		return studentRepository.findById(id).orElse(null);
+	}
+
+	public void saveStudent(StudentModel student) {
+		studentRepository.save(student);
+	}
+
+	public void deleteStudent(Long id) {
+		studentRepository.deleteById(id);
+	}
+	public List<CourseModel> getAllCourse(){
+		return courseRepository.findAll();
+	}
+	public void addCourse(CourseModel course) {
+		courseRepository.save(course);
+	}
+	public void deleteCourse(Long id) {
+		courseRepository.deleteById(id);
+	}
+	public void updateCourse(CourseModel course) {
+		Optional<CourseModel> existingCourseOptional=courseRepository.findById(course.getId());
+		if(existingCourseOptional.isPresent()) {
+			CourseModel existingCourseModel=existingCourseOptional.get();
+			existingCourseModel.setId(course.getId());
+			existingCourseModel.setName(course.getName());
+			existingCourseModel.setInstructure(course.getInstructure());
+			existingCourseModel.setDuration(course.getDuration());
+		}
+		else {
+			throw new IllegalArgumentException("Course not found with ID:"+course.getId());
+		}
+		
+	}
+}
